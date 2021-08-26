@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "black-anagram-323600",
+  "private_key_id": "e91b8fbd06353a684d304b269f750cb2ac5050b1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCOv3t4STlxEr8t\nQfOHA1zPq4twIGhe0P1TTbrvpfMK2KBA/CWAM9isTmRcdNhbO6p5FsfZxaJ4fo1H\na0a/w3WAKwsqKrbWHAzITlrOuLEU6fCSWaaMZ0uGqAa0GFP9rYYMYrKuw8qtkc5F\nynO1NeYfD0lm4J80BwC4daElMWWA8HKLH5nOU8XM8+gmi4TVurwLsW6XF/SbEMQJ\nX/SGaRoAR3GwBJfrb7CIY+CatR25UgeNt2usG+I7+82xP2uUPoxuKdGdq18y6qMC\nkardZGpUSL/Wb1H/zw6GlWmFKT7AyDYtKCwXohhPnJw37zTrSRKngzJPmaix+g2s\nL0KkEE/rAgMBAAECggEAD3pPpvE5mzsPI5cdEqyYqaPOELBS4MUEUr4A4O87dReb\n+K/eWRJGEhjF5Qh+VRYZG9wOe1xki3AdXXsSRsSovubr5PyQqpKMCEQGsJdyC/R5\ns0SpPFwO4mDhqTFiGgVwnXMuMKjmFv/SP9r9xM49T2zW5qLAYGHKADYw7Nl4Sgye\nyOoP5Tj1j6Edz2zoAYqSpcK6iAxtmLSjcYTfVKtvoGCFSvofp0ECp0L+aE7MacMT\n1SFmnkt/QKVsBdv6iM4+CYdTrM/XZrVL32fa3OY00JUF4R1h/I5gQysSwmopTbnE\nKXZX/CCzPbbrR64Zhfq8F4JcRdVyU52K0HRrkxtBsQKBgQDCRXqHBYQmryquAVFv\n5RkQuil7EWA272MxkNiOnmaYff+wGsIh6drTHdfG+lBL0DOkUpi0iBJ+bbDS6NBG\nM5ITab783IErETEuDh/kfT0ox8TRdpGDfpMJhbDcC2XtIhGfUu9/X5N6nex8lpxu\nzNyJMtkvMe9wCsv1kNeC4hoGFQKBgQC8GvWrj1rekqEvwBzG9rwtbpckxxsvZkif\nSlUTR4XYe24ZgRsrhuzqYC88vazq9uYhOVinccbCHdBSyLjpsMRvg8F3TGLmlY7/\nV08uLNBfNLCon5Y4NP2X3IfTGJqepbxbgnGwBDDvdTsTXBqaKhZJ00B20vUTy9vw\njOyI8Xx9/wKBgHBMsXNzoNyrzUQgxu6jxEWDF49oj/Gxl+mDDWwD7NKhozgtf6MT\nB8eaLK187QWmKPQIOvXA4s/qoJiKtDqgfQRz0E9jN9epbIBu8cinDL+SGxfqLluQ\nw3ZxrbbFb/oQA5fR3VgH67yppZaviWYTTjiRCDLb7skZtKUTQUELanexAoGBALUB\nIDs409DuucnwDADstcDl9Oy/5wniW6lj5p+JqGLayuQh1to4mEsjyPCi9/yVHncD\n7qoZko+CDs9KNJ0yqqM/3m+EgnqtmY9dHWUqXEvwsLlh7zQg0ZFK9SwNNePJSYmo\n6Ord7ZTOcs07SKHmM9JQRGzSrF+jP/2mLYnNDeVTAoGAPJzjJ6ZSfsShPzwTa6M9\nWhhFeMi1IMvbKl7VKf1dyyzEQf+UQN5rXxPuSFfl8LUgBrxt+Xz4U63L1/zJjY/0\ngjgsa0d9k7LC5yISkWL6PwqJrn9AWBrN/DQLnhTsdPMpziVKGsojLp3lYW7ErD24\nGo+/S15/Nw2/nsAu1GIK+QI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "c-virtual-assistant@black-anagram-323600.iam.gserviceaccount.com",
+  "client_id": "103411174264023054260",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/c-virtual-assistant%40black-anagram-323600.iam.gserviceaccount.com"
+}
