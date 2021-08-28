@@ -2,15 +2,10 @@
 {
     partial class settingsForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
+       
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -70,6 +65,8 @@
             this.howToDetails = new System.Windows.Forms.Label();
             this.dataCollectionTitle = new System.Windows.Forms.Label();
             this.dataCollectionDetails = new System.Windows.Forms.Label();
+            this.nicknamesTitle = new System.Windows.Forms.Label();
+            this.nicknamesDetails = new System.Windows.Forms.Label();
             this.leftPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.catImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arrow1)).BeginInit();
@@ -475,7 +472,7 @@
             // 
             this.howToTitle.AutoSize = true;
             this.howToTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.howToTitle.Location = new System.Drawing.Point(209, 165);
+            this.howToTitle.Location = new System.Drawing.Point(209, 152);
             this.howToTitle.Name = "howToTitle";
             this.howToTitle.Size = new System.Drawing.Size(55, 15);
             this.howToTitle.TabIndex = 28;
@@ -484,7 +481,7 @@
             // howToDetails
             // 
             this.howToDetails.AutoSize = true;
-            this.howToDetails.Location = new System.Drawing.Point(209, 196);
+            this.howToDetails.Location = new System.Drawing.Point(209, 187);
             this.howToDetails.Name = "howToDetails";
             this.howToDetails.Size = new System.Drawing.Size(371, 13);
             this.howToDetails.TabIndex = 29;
@@ -494,7 +491,7 @@
             // 
             this.dataCollectionTitle.AutoSize = true;
             this.dataCollectionTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataCollectionTitle.Location = new System.Drawing.Point(209, 259);
+            this.dataCollectionTitle.Location = new System.Drawing.Point(209, 242);
             this.dataCollectionTitle.Name = "dataCollectionTitle";
             this.dataCollectionTitle.Size = new System.Drawing.Size(105, 15);
             this.dataCollectionTitle.TabIndex = 30;
@@ -503,13 +500,32 @@
             // dataCollectionDetails
             // 
             this.dataCollectionDetails.AutoSize = true;
-            this.dataCollectionDetails.Location = new System.Drawing.Point(209, 292);
+            this.dataCollectionDetails.Location = new System.Drawing.Point(209, 281);
             this.dataCollectionDetails.Name = "dataCollectionDetails";
             this.dataCollectionDetails.Size = new System.Drawing.Size(411, 13);
             this.dataCollectionDetails.TabIndex = 31;
             this.dataCollectionDetails.Text = "Here is some information on how your data is collected and what your data is used" +
     " for.";
             this.dataCollectionDetails.Click += new System.EventHandler(this.dataCollectionDetails_Click);
+            // 
+            // nicknamesTitle
+            // 
+            this.nicknamesTitle.AutoSize = true;
+            this.nicknamesTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nicknamesTitle.Location = new System.Drawing.Point(209, 324);
+            this.nicknamesTitle.Name = "nicknamesTitle";
+            this.nicknamesTitle.Size = new System.Drawing.Size(78, 15);
+            this.nicknamesTitle.TabIndex = 32;
+            this.nicknamesTitle.Text = "Nicknames";
+            // 
+            // nicknamesDetails
+            // 
+            this.nicknamesDetails.AutoSize = true;
+            this.nicknamesDetails.Location = new System.Drawing.Point(209, 361);
+            this.nicknamesDetails.Name = "nicknamesDetails";
+            this.nicknamesDetails.Size = new System.Drawing.Size(325, 13);
+            this.nicknamesDetails.TabIndex = 33;
+            this.nicknamesDetails.Text = "Here is some information on how nicknames work with this program.";
             // 
             // settingsForm
             // 
@@ -518,6 +534,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(638, 450);
+            this.Controls.Add(this.nicknamesDetails);
+            this.Controls.Add(this.nicknamesTitle);
             this.Controls.Add(this.dataCollectionDetails);
             this.Controls.Add(this.dataCollectionTitle);
             this.Controls.Add(this.howToDetails);
@@ -621,6 +639,8 @@
         private System.Windows.Forms.Label howToDetails;
         private System.Windows.Forms.Label dataCollectionTitle;
         private System.Windows.Forms.Label dataCollectionDetails;
+        private System.Windows.Forms.Label nicknamesTitle;
+        private System.Windows.Forms.Label nicknamesDetails;
 
         public void settingsHomePageVisible()
         {
@@ -668,6 +688,8 @@
             howToDetails.Visible = true;
             dataCollectionTitle.Visible = true;
             dataCollectionDetails.Visible = true;
+            nicknamesTitle.Visible = true;
+            nicknamesDetails.Visible = true;
         }
 
         public void settingsHomePageInvisible()
@@ -716,6 +738,8 @@
             howToDetails.Visible = false;
             dataCollectionTitle.Visible = false;
             dataCollectionDetails.Visible = false;
+            nicknamesTitle.Visible = false;
+            nicknamesDetails.Visible = false;
         }
 
         public void ShowSettingsHome()
@@ -748,6 +772,6 @@
             settingsHomePageInvisible();
             voiceActPageInvisible();
             notesPageInvisible();
-        }
+        }        
     }
 }

@@ -8,14 +8,6 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
-using System.Timers;
-//using Google.Cloud.Speech.V1;
-//using Google.Cloud.Language.V1;
-//using Google.Apis.Auth.OAuth2;
-using NAudio.Mixer;
-using NAudio.Wave;
-//using Grpc.Auth;
-//using Google.Protobuf.Collections;
 using System.Device.Location;
 using System.Media;
 
@@ -36,13 +28,14 @@ namespace AI_personal_assistant_Csharp
         private Point startPoint = new Point(0, 0); // for the panelTop to be draggable
 
         private GeoCoordinateWatcher Watcher = null; //set watcher to null
-        string localLat;
+        string localLat; // retrieved longitude and latitude for weather web api, but not working
         string localLong;
 
-        public static string voiceAct = "hello";
+        public static string voiceAct = "hello"; // default voice activation comand
 
         public void loadActivationGrammar()
         {
+            // add the text written by the user for the new voice activation command to the grammar
             Choices newVoiceActive = new Choices();
             newVoiceActive.Add(voiceAct);
             GrammarBuilder g3Builder = new GrammarBuilder();
@@ -56,6 +49,7 @@ namespace AI_personal_assistant_Csharp
 
         public void loadNotesGrammar()
         {
+            // add the text written in notes to the grammar
             Choices notesGrammar = new Choices();
             notesGrammar.Add(notes);
             GrammarBuilder g4Builder = new GrammarBuilder();
@@ -98,7 +92,7 @@ namespace AI_personal_assistant_Csharp
 
             NAudio.CoreAudioApi.MMDeviceEnumerator enumerator = new NAudio.CoreAudioApi.MMDeviceEnumerator();
             var devices = enumerator.EnumerateAudioEndPoints(NAudio.CoreAudioApi.DataFlow.All, NAudio.CoreAudioApi.DeviceState.Active);
-            comboBox1.Items.AddRange(devices.ToArray());
+            comboBox1.Items.AddRange(devices.ToArray()); // make combo box set devices for audio
 
             
         }
@@ -108,44 +102,29 @@ namespace AI_personal_assistant_Csharp
             if (comboBox1.SelectedItem != null)
             {
                 var device = (NAudio.CoreAudioApi.MMDevice)comboBox1.SelectedItem;
-                progressBar1.Value = (int)(Math.Round(device.AudioMeterInformation.MasterPeakValue * 100));
+                progressBar1.Value = (int)(Math.Round(device.AudioMeterInformation.MasterPeakValue * 100)); // make green progress bar
             }
         }
         
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //load the general commands to the grammar
             Choices commands = new Choices();
-            commands.Add(new string[] { "long speech", "introduce yourself", "show me your commands", "stop", "halt", "continue", "resume", "pause", "wait", "delete", "forget", "open google", "what's the weather", "show me your pants", "goodbye", "search for corvid breeders", "I have vocal Tourette's", "I have a stutter", "yes", "no", "call me your highness", "close", "play music" });
+            commands.Add(new string[] { "long speech", "introduce yourself", "show me your commands", "stop", "halt", "continue", "resume", "pause", "wait", "delete", "forget", "open google", "what's the weather", "show me your pants", "goodbye", "search for corvid breeders", "I have vocal Tourette's", "I have a stutter", "call me your highness", "close", "play music" });
             GrammarBuilder gBuilder = new GrammarBuilder();
             gBuilder.Append(commands);
             Grammar grammar = new Grammar(gBuilder);
 
+            //Load the initial voice activation command to the grammer (default voice activation command)
             Choices voiceActive = new Choices();
             voiceActive.Add(voiceAct);
             GrammarBuilder g2Builder = new GrammarBuilder();
             g2Builder.Append(voiceActive);
             Grammar grammar2 = new Grammar(g2Builder);
 
-
-            //GrammarBuilder state = new GrammarBuilder();
-            //state.Append(new Choices("on", "off"));
-            //state.Culture = ri.Culture;
-            //GrammarBuilder noun = new GrammarBuilder();
-            //noun.Append(new Choices("lamp"));
-            //noun.Culture = ri.Culture;
-            //GrammarBuilder verb = new GrammarBuilder();
-            //verb.Append(new Choices("turn"));
-            //verb.Culture = ri.Culture;
-
-            //GrammarBuilder grammar = new GrammarBuilder();
-            //grammar.Append(verb);
-            //grammar.Append(lamp);
-            //grammar.Append(state);
-            //Grammar g = new Grammar(grammar);
-
             catVoice.SelectVoiceByHints(VoiceGender.Female); // speech synthesizer customization
-            catVoice.Rate = 3;
+            catVoice.Rate = 3; // speed 3
 
             // Create the watcher.
             Watcher = new GeoCoordinateWatcher();
@@ -183,15 +162,15 @@ namespace AI_personal_assistant_Csharp
             manualAct = false;
         }
 
-        private bool wake = false;
-        private bool manualAct = false;
+        private bool wake = false; //assistant wakes when voice activation command given
+        private bool manualAct = false; //boolean for manual activation
         private bool speechDetect = false;
-        private bool pauseMusicControl = false;
 
         private void StartBtn_Click(object sender, EventArgs e)
         {
             manualAct = true;
             startBtn.Enabled = false; //start unclickable
+            wake = true;
 
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\project_ref\beep2.wav");
             player.Play();
@@ -216,7 +195,7 @@ namespace AI_personal_assistant_Csharp
             catVoice.SpeakCompleted += catVoice_SpeakCompleted;
 
 
-            if (manualAct == true || speechSaid == voiceAct)
+            if (manualAct == true || speechSaid == voiceAct || wake ==true)
             {
                 richTextBox1.Text = String.Empty; //empties box
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\project_ref\beep2.wav");
@@ -230,15 +209,22 @@ namespace AI_personal_assistant_Csharp
                 manualAct = false;
 
             }
-            // setting a stopwatch for 10 seconds
-            // Stopwatch stopWatch = new Stopwatch();
-            //stopWatch.Start();
-            //Thread.Sleep(10000); 
-            // stopWatch.Stop();
-
-            //if (stopWatch.IsRunning == true)
-            // {
-            if (wake) {
+            if (speechSaid == "stop")
+            {
+                //meant to detect when the user says "stop" a second time in 20 seconds, using a timer in a background worker
+                player.Stop();
+                if(backgroundWorker1.IsBusy)
+                {
+                    MessageBox.Show("second 'stop' detected");
+                }
+                if (!backgroundWorker1.IsBusy)
+                {
+                    backgroundWorker1.RunWorkerAsync();
+                }
+                
+            }
+            
+                if (wake) {
                 switch (speechSaid)
                 {
                     case "long speech":
@@ -312,8 +298,6 @@ namespace AI_personal_assistant_Csharp
                         richTextBox1.AppendText("\nCat:  ");
                         richTextBox1.AppendText("Pawsing...");
                         pauseSpeech();
-                        pauseMusicControl = false;
-                        pauseIndex++;
                         break;
 
                     case "wait":
@@ -391,7 +375,7 @@ namespace AI_personal_assistant_Csharp
 
                     case ("goodbye"):
                         richTextBox1.SelectionColor = Color.ForestGreen;
-                        richTextBox1.AppendText("You:  ");
+                        richTextBox1.AppendText("\nYou:  ");
                         richTextBox1.AppendText(e.Result.Text);
                         richTextBox1.SelectionColor = Color.DeepPink;
                         richTextBox1.AppendText("\nCat:  ");
@@ -402,7 +386,7 @@ namespace AI_personal_assistant_Csharp
 
                     case ("search for corvid breeders"):
                         richTextBox1.SelectionColor = Color.ForestGreen;
-                        richTextBox1.AppendText("You:  ");
+                        richTextBox1.AppendText("\nYou:  ");
                         richTextBox1.AppendText(e.Result.Text);
                         richTextBox1.SelectionColor = Color.DeepPink;
                         richTextBox1.AppendText("\nCat:  ");
@@ -413,7 +397,7 @@ namespace AI_personal_assistant_Csharp
 
                     case ("I have vocal Tourette's"):
                         richTextBox1.SelectionColor = Color.ForestGreen;
-                        richTextBox1.AppendText("You:  ");
+                        richTextBox1.AppendText("\nYou:  ");
                         richTextBox1.AppendText(e.Result.Text);
                         richTextBox1.SelectionColor = Color.DeepPink;
                         richTextBox1.AppendText("\nCat:  ");
@@ -424,7 +408,7 @@ namespace AI_personal_assistant_Csharp
 
                     case ("I have a stutter"):
                         richTextBox1.SelectionColor = Color.ForestGreen;
-                        richTextBox1.AppendText("You:  ");
+                        richTextBox1.AppendText("\nYou:  ");
                         richTextBox1.AppendText(e.Result.Text);
                         richTextBox1.SelectionColor = Color.DeepPink;
                         richTextBox1.AppendText("\nCat:  ");
@@ -435,7 +419,7 @@ namespace AI_personal_assistant_Csharp
 
                     case ("play music"):
                         richTextBox1.SelectionColor = Color.ForestGreen;
-                        richTextBox1.AppendText("You:  ");
+                        richTextBox1.AppendText("\nYou:  ");
                         richTextBox1.AppendText(e.Result.Text);
                         richTextBox1.SelectionColor = Color.DeepPink;
                         richTextBox1.AppendText("\nCat:  ");
@@ -446,7 +430,7 @@ namespace AI_personal_assistant_Csharp
 
                     case ("call me your highness"):
                         richTextBox1.SelectionColor = Color.ForestGreen;
-                        richTextBox1.AppendText("You:  ");
+                        richTextBox1.AppendText("\nYou:  ");
                         richTextBox1.AppendText(e.Result.Text);
                         richTextBox1.SelectionColor = Color.DeepPink;
                         richTextBox1.AppendText("\nCat:  ");                        
@@ -457,13 +441,9 @@ namespace AI_personal_assistant_Csharp
                         Say(nicknameResponses[rndNum]);
                         break;
 
-                    case ("yes"):
-                        confirmation = true;
-                        break;
-
                     case ("close"):
                         richTextBox1.SelectionColor = Color.ForestGreen;
-                        richTextBox1.AppendText("You:  ");
+                        richTextBox1.AppendText("\nYou:  ");
                         richTextBox1.AppendText(e.Result.Text);
                         richTextBox1.SelectionColor = Color.DeepPink;
                         richTextBox1.AppendText("\nCat:  ");
@@ -497,11 +477,16 @@ namespace AI_personal_assistant_Csharp
 
         public void sayNotes()
         {
-            Say("Are you sure");
-            Say(notes);
-            
+            DialogResult confirmResult = MessageBox.Show("Are you sure you want to complete this action?", "Confirmation", MessageBoxButtons.YesNo);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                Say(notes);
+            }
             
         }
+
+        
 
         private void catVoice_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
@@ -608,33 +593,14 @@ namespace AI_personal_assistant_Csharp
 
             // Create a new player with a random filepath from the array
             player.SoundLocation = filePaths[choices];
-            player.Play();
-
-            if (pauseMusicControl == true)
-            {
-                player.Stop();
-            }
+            player.Play();          
             
-            switch (pauseIndex)
-            {
-                case 0:
-
-                    break;
-
-                case 1:
-
-                    break;
-
-                case 2:
-
-                    break;
-            }
         }
 
         public void waitTimeOn()
         {
-            recogEngine.EndSilenceTimeout = TimeSpan.FromSeconds(2);
-            recogEngine.EndSilenceTimeoutAmbiguous = TimeSpan.FromSeconds(3);
+            recogEngine.EndSilenceTimeout = TimeSpan.FromSeconds(3);
+            recogEngine.EndSilenceTimeoutAmbiguous = TimeSpan.FromSeconds(5);
         }
 
         public void waitTimeOff()
@@ -650,14 +616,15 @@ namespace AI_personal_assistant_Csharp
             aTimerForMusic = new System.Timers.Timer(20000);
             aTimerForMusic.AutoReset = true;
             aTimerForMusic.Enabled = true;
+            aTimerForMusic.Start();
         }
 
-        private int pauseIndex = 0;
+        private int stopIndex = 0;
         
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            pauseIndex--;
+            stopIndex--;
         }
     } // end of Form1 : Form
 }
