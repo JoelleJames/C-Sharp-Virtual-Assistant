@@ -25,7 +25,7 @@ Key Features:
 ---
 <br />
 <br />
-(The small cat on the left plays a meow sound when clicked :smile_cat: )
+(The small cat on the left plays a meow sound when clicked :smiley_cat: )
 <br />
 <br />
 <img style="float:left;padding-right:40px" alt="Settings Section" width="420px" src="AssistantSettingsForm.png">
