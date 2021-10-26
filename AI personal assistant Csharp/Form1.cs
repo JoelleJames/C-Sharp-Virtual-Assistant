@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* C# Virtual assistant made by Joelle James 2021.
+ * 
+ */
+
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -225,7 +229,7 @@ namespace AI_personal_assistant_Csharp
             }
             
                 if (wake) {
-                switch (speechSaid)
+                switch (speechSaid) //switch for commands
                 {
                     case "long speech":
                         
@@ -348,8 +352,7 @@ namespace AI_personal_assistant_Csharp
                         richTextBox1.SelectionColor = Color.DeepPink;
                         richTextBox1.AppendText("\nCat:  ");
                         richTextBox1.AppendText("opening the weather api. Feature currently not working due to the device's longitude and latitude not converting to the url string.");
-                        Say("opening the weather api. Feature currently not working due to the device's longitude and latitude not converting to the url string.");
-                        Process.Start($"https://api.openweathermap.org/data/2.5/onecall?lat=&lon=units=metric&exclude=hourly,daily&appid=768d94f6478d5692721b50548e57b83e");
+                        Say("opening the weather api. Feature currently not working due to the device's longitude and latitude not converting to the url string.");                      
                         break;
 
                     case ("show me your pants"):
@@ -454,12 +457,7 @@ namespace AI_personal_assistant_Csharp
                 }
 
                 } // end of switch for commands
-               // }
-               // else
-               // {
-               //     wake = false;
-               //     richTextBox1.Text += "\nasleep";
-               // }
+               
              // end of if(wake)
         }
 
